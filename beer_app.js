@@ -1,8 +1,9 @@
 var fs = require('fs');
 var express = require('express');
+var bodyParser = require('body-parser');
 var jade = require('jade');
 var couchbase = require('couchbase');
-var _ = require('underscore');
+var _ = require('lodash');
 var ViewQuery = couchbase.ViewQuery;
 
 var ENTRIES_PER_PAGE = 30;
@@ -23,7 +24,7 @@ exports.start = function(config)
   });
 
   var app = express();
-  app.use(express.bodyParser());
+  app.use(bodyParser.json());
   app.use(express.static('static'));
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
